@@ -15,8 +15,8 @@ public class ProductService {
 
     private final ProductRepository productRepository;
 
-    public Product createProduct(String name, String description, BigDecimal price, boolean forSale, String loggedInUserId) {
-        Product product = new Product(name, description, price, forSale, loggedInUserId);
+    public Product createProduct(String name, String description, BigDecimal price, boolean forSale, String userId) {
+        Product product = new Product(name, description, price, forSale, userId);
         product = productRepository.save(product);
         return product;
     }
@@ -29,15 +29,15 @@ public class ProductService {
         return productRepository.findAllByForSale(true);
     }
 
-    public void deleteProduct(String productId, String loggedInUserId) {
+    public void deleteProduct(String productId, String userId) {
         Optional<Product> product = productRepository.findById(productId);
 
         if(product.isEmpty()) {
-            throw new RuntimeException("Product " + productId + " was not found, requested by " + loggedInUserId);
+            throw new RuntimeException("Product " + productId + " was not found, requested by " + userId);
         }
 
-        if(!product.get().getOwnerId().equals(loggedInUserId)) {
-            throw new RuntimeException("Product " + productId + " does not belong to " + loggedInUserId);
+        if(!product.get().getOwnerId().equals(userId)) {
+            throw new RuntimeException("Product " + productId + " does not belong to " + userId);
         }
 
         productRepository.deleteById(productId);
