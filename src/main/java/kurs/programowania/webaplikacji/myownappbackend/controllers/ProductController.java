@@ -39,7 +39,7 @@ public class ProductController {
     public ResponseEntity<List<ProductResponse>> getLoggedInUserProducts() {
         //Check which user sent request
         return ResponseEntity.ok(
-            productService.getLoggedInUserProducts("testUserId").stream().map(ProductResponse::new).toList()
+            productService.getUserProducts("testUserId").stream().map(ProductResponse::new).toList()
         );
     }
 

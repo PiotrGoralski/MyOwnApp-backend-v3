@@ -21,8 +21,8 @@ public class ProductService {
         return product;
     }
 
-    public List<Product> getLoggedInUserProducts(String loggedInUserId) {
-        return productRepository.findAllByOwnerId(loggedInUserId);
+    public List<Product> getUserProducts(String userId) {
+        return productRepository.findAllByOwnerId(userId);
     }
 
     public List<Product> getProductsForSale() {
